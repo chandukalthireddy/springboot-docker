@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+ springboot1:
+  image: springboot1
+  container_name: springboot1
+  ports:
+   - 8081:8080
+  build:
+   context: .
+   dockerfile: Dockerfile
+  networks:
+   - test-network
+  depends_on:
+   - mysqldb1
+ mysqldb1:
+  image: mysql
+  container_name: mysqldb1
+  environment:
+   - MYSQL_ROOT_PASSWORD=Password1@
+   - MYSQL_DATABASE=testdb1
+   - MYSQL_USERNAME=root
+   - MYSQL_PASSWORD=Password1@
+  networks:
+  - test-network
+networks:
+ test-network:
+  external: true
+   
